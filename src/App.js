@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Fragment, useState } from "react";
+import TaskList from "./components/TaskList";
 
 function App() {
+  //task list state, initial state is with 2 dummy tasks
+  const [taskList, setTaskList] = useState([
+    { id: "t1", text: "Exercise" },
+    { id: "t2", text: "Send Email" },
+  ]);
+
+  const addTaskHandler = (enteredText) => {
+    setTaskList((prevTaskList) => {
+      const updatedTaskList = [...prevTaskList];
+      updatedTaskList.unshift({
+        id: Math.random().toString(36).substr(2, 9),
+        text: enteredText,
+      });
+      return updatedTaskList;
+    });
+  };
+
+  const deleteTaskHandler = (targetId) => {
+    setTaskList((prevTaskList) => {
+      const updatedTaskList = prevTaskList.filter(
+        (task) => task.id !== targetId
+      );
+      return updatedTaskList;
+    });
+  };
+
+  //Display the content
+  let content = <p>No tasks found.</p>;
+
+  if (taskList.length > 0) {
+    content = <TaskList items={taskList} onDelete={deleteTaskHandler} />;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <section>{content}</section>
+    </Fragment>
   );
 }
 
