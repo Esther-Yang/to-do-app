@@ -1,6 +1,7 @@
 import "./App.css";
 import { Fragment, useState } from "react";
 import TaskList from "./components/TaskList";
+import TaskInput from "./components/TaskInput";
 
 function App() {
   //task list state, initial state is with 2 dummy tasks
@@ -29,7 +30,7 @@ function App() {
     });
   };
 
-  //Display the content
+  //Content in task section
   let content = <p>No tasks found.</p>;
 
   if (taskList.length > 0) {
@@ -38,7 +39,10 @@ function App() {
 
   return (
     <Fragment>
-      <section>{content}</section>
+      <section id="form-section">
+        <TaskInput onAdd={addTaskHandler} />
+      </section>
+      <section id="task-section">{content}</section>
     </Fragment>
   );
 }
