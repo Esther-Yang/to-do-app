@@ -21,6 +21,7 @@ const TaskInput = (props) => {
       return;
     }
     props.onAdd(enteredValue);
+    setEnteredValue("");
   };
 
   return (
@@ -32,7 +33,7 @@ const TaskInput = (props) => {
           }`}
         >
           <label>Task</label>
-          <input type="text" onChange={taskInputHandler} />
+          <input type="text" value={enteredValue} onChange={taskInputHandler} />
         </div>
         <Button type="submit">Add Task</Button>
       </form>
